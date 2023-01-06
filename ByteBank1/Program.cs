@@ -104,7 +104,7 @@
         static void DepositarValorEmConta(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos) {
             int index = ValidarUsuario(cpfs, senhas);
             if (index > -1) {
-                Console.WriteLine($"Bem-vindo {titulares[index]}");
+                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]}");
                 Console.Write("digite o valor do deposito: ");
                 double valorDeposito = double.Parse(Console.ReadLine());
                 if (valorDeposito <= 0) {
@@ -121,7 +121,7 @@
         static void SacarValorEmConta(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos) {
             int index = ValidarUsuario(cpfs, senhas);
             if (index > -1) {
-                Console.WriteLine($"Bem-vindo {titulares[index]}");
+                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]}");
                 Console.Write("digite o valor do saque: ");
                 double valorSaque = double.Parse(Console.ReadLine());
                 if (valorSaque <= 0) {
@@ -138,22 +138,55 @@
             }   
         }
 
+        static void TransferenciaValorEmConta(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos) {
+            int index = ValidarUsuario(cpfs, senhas);
+            if (index > -1) {
+                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]}");
+                Console.Write("digite o valor da Tranferencia: ");
+                double valorTranferencia = double.Parse(Console.ReadLine());
+
+                if (valorTranferencia <= 0) {
+                    Console.WriteLine("Valor de transferencia é invalido");
+
+                }
+                if (saldos[index] <= valorTranferencia) {
+                    Console.WriteLine("saldo e insuficiente");
+                }
+                if (saldos[index] >= valorTranferencia ) {
+                    Console.Write("informe o cpf do cliente:");
+                    string cpfDaTransferenica = Console.ReadLine();
+                    int indexTranferencia = cpfs.FindIndex(cpf => cpf == cpfDaTransferenica);
+                    if (indexTranferencia == -1) {
+                        Console.WriteLine("Não realizar a transferencia para esta Conta");
+                        Console.WriteLine("MOTIVO: Conta não encontrada.");
+                    }
+                    if (indexTranferencia >= 0) {
+                        Console.WriteLine("Transferencia realizada com sucesso");
+                        saldos[indexTranferencia] += valorTranferencia;
+                    }
+
+                }
+            }
+
+        }
+
         static int ValidarUsuario(List<string> cpfs, List<string> senhas) {
             Console.Write("informe seu cpf: ");
             string verificarCfp =Console.ReadLine();
             Console.Write("informe seu sua senha: ");
             string verificarSenha = Console.ReadLine();
             
-            int procurarConta = cpfs.FindIndex(cpf => cpf == verificarCfp);           
-            if (procurarConta == -1) {
+            int idIndex = cpfs.FindIndex(cpf => cpf == verificarCfp);           
+            if (idIndex == -1) {
                 Console.WriteLine("Não foi possível acessar esta Conta");
                 Console.WriteLine("MOTIVO: Conta não encontrada.");
-                return procurarConta;
+                return idIndex;
             } else
             {
-                return procurarConta ;
+                return idIndex ;
             }
         } 
+
 
 
 
@@ -211,6 +244,10 @@
                                     SacarValorEmConta(cpfs, titulares, senhas, saldos);
                                     break;
                                 case 3:
+                                    TransferenciaValorEmConta(cpfs, titulares, senhas, saldos);
+                                    break;
+                                default:
+                                    Console.WriteLine("Operação invalida!");
                                     break;
 
                             }
@@ -218,12 +255,15 @@
                             Console.WriteLine("-----------------");
                             Console.WriteLine();
                         } while (option2 != 0);
-
+                        break;
+                    default:
+                        Console.WriteLine("Operação invalida!");
                         break;
 
                 }
-
+                Console.WriteLine();
                 Console.WriteLine("-----------------");
+                Console.WriteLine();
 
             } while (option != 0);
             
