@@ -76,8 +76,8 @@
             for(int i = 0; i < cpfs.Count; i++) {
                 ApresentaConta(i, cpfs, titulares, saldos);
             }
-            Console.WriteLine("Pressione Qualquer tecla para sair");
-            Console.ReadKey();
+            // Console.WriteLine("Pressione Qualquer tecla para sair");
+            // Console.ReadKey();
         }
 
         static void ApresentarUsuario(List<string> cpfs, List<string> titulares, List<double> saldos) {
@@ -116,7 +116,7 @@
                 }
                 if (valorDeposito > 0) {
                     saldos[index] += valorDeposito;
-                    Console.WriteLine("Deposito realizado com sucesso");
+                    Console.WriteLine("Deposito realizado com sucesso!!!");
                 }
             }
         }
@@ -125,18 +125,18 @@
             int index = ValidarUsuario(cpfs, senhas);
             if (index > -1) {
                 Console.WriteLine();
-                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]}");
+                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]:f2}");
                 Console.Write("digite o valor do saque: ");
                 double valorSaque = double.Parse(Console.ReadLine());
                 if (valorSaque <= 0) {
-                    Console.WriteLine("Valor de saque é invalido");
+                    Console.WriteLine("Valor de saque é invalido!!!");
              
                 }
                 if (saldos[index] <= valorSaque) {
-                    Console.WriteLine("saldo e insuficiente");
+                    Console.WriteLine("saldo e insuficiente!!!");
                 }
                 if (saldos[index] >= valorSaque) {
-                    Console.WriteLine("saque e efetuado com sucesso");
+                    Console.WriteLine("saque e efetuado com sucesso!!!");
                     saldos[index] -= valorSaque;
                 }
 
@@ -147,32 +147,32 @@
             int index = ValidarUsuario(cpfs, senhas);
             if (index > -1) {
                 Console.WriteLine();
-                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo: {saldos[index]}");
+                Console.WriteLine($"Bem-vindo {titulares[index]} Saldo Atual: {saldos[index]:f2}");
                 Console.Write("digite o valor da Tranferencia: ");
                 double valorTranferencia = double.Parse(Console.ReadLine());
 
                 if (valorTranferencia <= 0) {
                     Console.WriteLine();
-                    Console.WriteLine("Valor de transferencia é invalido");
+                    Console.WriteLine("Valor de transferencia é invalido!!!");
 
                 }
                 if (saldos[index] <= valorTranferencia) {
                     Console.WriteLine();
-                    Console.WriteLine("saldo e insuficiente");
+                    Console.WriteLine("saldo e insuficiente!!!");
                 }
                 if (saldos[index] >= valorTranferencia ) {
                     Console.WriteLine();
-                    Console.Write("informe o cpf do cliente:");
+                    Console.Write("informe o cpf da conta destinatario: ");
                     string cpfDaTransferenica = Console.ReadLine();
                     int indexTranferencia = cpfs.FindIndex(cpf => cpf == cpfDaTransferenica);
                     if (indexTranferencia == -1) {
                         Console.WriteLine();
                         Console.WriteLine("Não realizar a transferencia para esta Conta");
-                        Console.WriteLine("MOTIVO: Conta não encontrada.");
+                        Console.WriteLine("MOTIVO: Conta não encontrada!!!.");
                     }
                     if (indexTranferencia >= 0) {
                         Console.WriteLine();
-                        Console.WriteLine("Transferencia realizada com sucesso");
+                        Console.WriteLine("Transferencia realizada com sucesso!!!");
                         saldos[index] -= valorTranferencia;
                         saldos[indexTranferencia] += valorTranferencia;
                     }
@@ -194,7 +194,7 @@
             if (idIndex == -1) {
                 Console.WriteLine();
                 Console.WriteLine("Não foi possível acessar esta Conta");
-                Console.WriteLine("MOTIVO: Conta não encontrada.");
+                Console.WriteLine("MOTIVO: Conta não encontrada.!!!");
                 return idIndex;
             } else
             {
@@ -250,6 +250,7 @@
                             option2 = int.Parse(Console.ReadLine());
                             switch(option2) {
                                 case 0:
+                                    Console.WriteLine();
                                     Console.WriteLine("Voltando a menu principal");
                                     break;
                                 case 1:
